@@ -29,9 +29,11 @@ app.get('/compose', function (req, res){
   res.render('compose');
 });
 
-
 app.post('/compose', function (req, res){
-console.log(req.body.postTitle);
+  const post = {
+    title: req.body.postTitle,
+    message: req.body.postMessage,
+  };
   res.redirect('/compose');
 });
 
