@@ -31,6 +31,7 @@ app.get('/compose', function (req, res){
   res.render('compose');
 });
 
+
 app.post('/compose', function (req, res){
   const post = {
       title: req.body.postTitle,
@@ -40,6 +41,21 @@ app.post('/compose', function (req, res){
   res.redirect('/');
 });
 
+/*Route Parameter - Dynamic route handling*/
+app.get('/posts/:postName', function (req, res) {
+  const requestedTitle = req.params.postName;
+
+  posts.forEach(function(post) {
+    const storedTitle = post.title;
+      if (requestedTitle === storedTitle) {
+        console.log('Match');
+      } else {
+        console.log('No Match');
+      };
+  });
+
+
+});
 
 
 app.listen(3000, function() {
