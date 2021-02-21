@@ -11,12 +11,12 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+const _ = require('lodash');
 let posts = [];
 
 
 app.get('/', function (req, res){
   res.render('home', {startingContent:homeStartingContent, posts:posts});
-  console.log();
 });
 
 app.get('/about', function (req, res){
@@ -38,22 +38,22 @@ app.post('/compose', function (req, res){
       message: req.body.postMessage,
       };
   posts.push(post);
-  res.redirect('/');
+  res.render('compose');
+  //or res.redirect('/');
 });
 
 /*Route Parameter - Dynamic route handling*/
 app.get('/posts/:postName', function (req, res) {
-  const requestedTitle = req.params.postName;
+  const requestedTitle = _.lowerCase(req.params.postName);
 
-  posts.forEach(function(post) {
-    const storedTitle = post.title;
-      if (requestedTitle === storedTitle) {
-        console.log('Match');
-      } else {
-        console.log('No Match');
-      };
-  });
+    posts.forEach(function(post) {
+      const storedTitle = _.lowerCase(post.title);
 
+        if (requestedTitle === storedTitle) {
+          //console.log('Match Found!');
+          res.render('post');
+        };
+    });
 
 });
 
