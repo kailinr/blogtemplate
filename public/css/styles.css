@@ -1,3 +1,8 @@
+html {
+  min-height: 100%;
+  position: relative;
+} /* If your app is not floating properly! */
+
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
