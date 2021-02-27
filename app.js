@@ -42,6 +42,19 @@ app.post('/compose', function (req, res){
   //or res.redirect('/');
 });
 
+app.post('/contact', function (req, res){
+  const contact = {
+      fullName: req.body.fullName,
+      email: req.body.email,
+      contactMessage: req.body.contactMessage,
+      };
+
+      console.log(contact);
+
+  res.redirect('/');
+  //or res.redirect('/');
+});
+
 /*Route Parameter - Dynamic route handling*/
 app.get('/posts/:postName', function (req, res) {
 
