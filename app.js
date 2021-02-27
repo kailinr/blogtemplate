@@ -44,6 +44,7 @@ app.post('/compose', function (req, res){
 
 /*Route Parameter - Dynamic route handling*/
 app.get('/posts/:postName', function (req, res) {
+
   const requestedTitle = _.lowerCase(req.params.postName);
 
       posts.forEach(function(post) {
