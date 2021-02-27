@@ -7,6 +7,14 @@ html {
     padding-top: 70px;
     padding-bottom: 70px;
 }
+
+.container-center {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    text-align: center;
+}
+
+
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
