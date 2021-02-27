@@ -62,7 +62,9 @@ app.post('/contact', function(req, res) {
   };
 
   console.log(contact);
-  res.render('success');
+  res.render('success', {
+    contact: contact
+  });
   //or res.redirect('/');
 });
 
