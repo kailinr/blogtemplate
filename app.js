@@ -9,66 +9,80 @@ const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pelle
 const contactContent = "Send me a message!"
 const app = express();
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 const _ = require('lodash');
 let posts = [];
 
 
-app.get('/', function (req, res){
-  res.render('home', {startingContent:homeStartingContent, posts:posts});
+app.get('/', function(req, res) {
+  res.render('home', {
+    startingContent: homeStartingContent,
+    posts: posts
+  });
 });
 
-app.get('/about', function (req, res){
-  res.render('about', {aboutContent:aboutContent});
+app.get('/about', function(req, res) {
+  res.render('about', {
+    aboutContent: aboutContent,
+  });
 });
 
-app.get('/contact', function (req, res){
-  res.render('contact', {contactContent:contactContent});
+app.get('/contact', function(req, res) {
+  res.render('contact', {
+    contactContent: contactContent,
+  });
 });
 
-app.get('/compose', function (req, res){
+app.get('/compose', function(req, res) {
   res.render('compose');
 });
 
+app.get('/success', function(req, res) {
+  res.render('success');
+});
 
-app.post('/compose', function (req, res){
+app.post('/compose', function(req, res) {
   const post = {
-      title: req.body.postTitle,
-      message: req.body.postMessage,
-      };
+    title: req.body.postTitle,
+    message: req.body.postMessage,
+  };
   posts.push(post);
   res.render('compose');
   //or res.redirect('/');
 });
 
-app.post('/contact', function (req, res){
+app.post('/contact', function(req, res) {
   const contact = {
-      fullName: req.body.fullName,
-      email: req.body.email,
-      contactMessage: req.body.contactMessage,
-      };
+    fullName: req.body.fullName,
+    email: req.body.email,
+    contactMessage: req.body.contactMessage,
+  };
 
-      console.log(contact);
-
-  res.redirect('/');
+  console.log(contact);
+  res.render('success');
   //or res.redirect('/');
 });
 
-/*Route Parameter - Dynamic route handling*/
-app.get('/posts/:postName', function (req, res) {
+/*Route Parameter - Dynamic route handling - Click on Post to be redirected*/
+app.get('/posts/:postName', function(req, res) {
 
   const requestedTitle = _.lowerCase(req.params.postName);
 
-      posts.forEach(function(post) {
-        const storedTitle = _.lowerCase(post.title);
-        const storedMessage = post.message;
+  posts.forEach(function(post) {
+    const storedTitle = _.lowerCase(post.title);
+    const storedMessage = post.message;
 
-          if (requestedTitle === storedTitle) {
-            //res.render('post', {storedTitle:storedTitle, storedMessage:storedMessage});
-            res.render('post', {title:post.title, content:post.message});
-        };
-    });
+    if (requestedTitle === storedTitle) {
+      //res.render('post', {storedTitle:storedTitle, storedMessage:storedMessage});
+      res.render('post', {
+        title: post.title,
+        content: post.message
+      });
+    };
+  });
 
 });
 
